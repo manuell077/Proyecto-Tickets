@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+:root{
+    --sombra-gris:rgba(0, 0, 0, 0.3);
+    --color-negro: #000; 
+}
+
+.container{
+     justify-content: center;
+     width: 100%;
+     height: 100vh;
+     padding: 10px;
+     margin: 0 auto;
+     text-align: center;
+     font-family: "Stack Sans Text", sans-serif;
+}
+
+
+.titulo-login{
+    margin-top: 120px;
+}
+
+.carta{
+    margin: 0 auto;
+    margin-top: 45px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px var(--sombra-gris);
+    height: 540px;
+    width: 400px;
+    
+}
+
+.carta__titulo{
+    padding: 14px;
+    
+}
+
+
+.entrada_datos_login{
+    text-align: left;
+    padding: 20px;
+}
+
+
+
+.entrada_datos_login-nombre_de_documento{
+    display: block;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+
+.entrada_datos_login-tipo_de_documento{
+    width: 100%;
+    height: 30px;
+}
+
+.divider{
+    margin: 15px auto;
+    background-color: var(--sombra-gris);
+    height: 1px;
+    width: 90%;
+}
+
+
+.texto_de_apoyo{
+    font-size: 15px;
+    display: block;
+    margin: 0 auto;
+    width: 300px;
+    color: var(--sombra-gris);
+}
+
+
+
+

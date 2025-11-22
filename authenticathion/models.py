@@ -1,22 +1,54 @@
 from django.db import models
 
 
-#Creacion del modelo de la tabla IndentityDocument
+#Creacion del modelo de la tabla IndentityDocument donde solo necitaremos el code que es "Nit,C.C," y el nombre de este documento
 class IndentityDocument(models.Model):
     id = models.BigAutoField(primary_key=True)
     code = models.CharField(max_length=80)
     document_name = models.CharField(max_length=80)
-    requires_check_digit = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
-    created_by = models.BigIntegerField(null=True, blank=True)
-    created_at = models.DateTimeField() 
-    updated_by = models.BigIntegerField(null=True,blank=True)
-    updated_at = models.DateTimeField(null=True,blank=True)
+    
     
     #la clase meta es como un panel de administracion de los modelos que permite decirle al modelo que no actulice la tabla en la bsae de datos
     class Meta:
         managed = False #Para que no actualice en la base de datos
-        db_table = 'core.identity_document' #haciendo referencia a la tabla en la base de datos 
+        db_table = 'core"."identity_document' #haciendo referencia a la tabla en la base de datos 
 
+    def __str__(self):#funcion para cuando se haga referncia a estos objetos en forma de texto se muestren de diferente forma
+        return f"{self.code} - {self.document_name}"
+
+#Creacion del modelo de entity donde solo necesitartemos el id , el numero del documento y le nombre completo
+class Entity(models.Model):
+     id = models.BigAutoField(primary_key=True)
+     document_number = models.CharField(max_length=80)
+     full_name = models.CharField(max_length=150)
+     identity_document_id = models.ForeignKey(IndentityDocument,on_delete=models.DO_NOTHING,db_column="identity_document_id")
+     
+     class Meta:
+          managed = False 
+          db_table = 'core"."entity'
     
+     def __str__(self):#funcion para cuando se haga referncia a estos objetos en forma de texto se muestren de diferente forma
+        return f"{self.document_number} - {self.full_name}"
+     
 
+#Creacion del modelo de account user donde solo utilizaremos la contraseña y la ultima vez que se realizo el login
+
+class AccountUser(models.Model):
+    entity_id  = models.BigAutoField(primary_key=True)
+    password_hash = models.TextField()
+    last_login = models.DateTimeField()
+    is_active = models.BooleanField(default=True)
+
+
+    class Meta:
+        managed = False 
+        db_table = 'auth"."account_user'
+    
+    @property
+    def is_authenticated(self):
+        return True
+
+    def __str__(self):#funcion para cuando se haga referncia a estos objetos en forma de texto se muestren de diferente forma
+        return f"{self.entity_id}"
+    
+     
