@@ -15,10 +15,11 @@ class SetAuditUserMiddleware:  #Esta es la clase de middleware
           
           if entity_id:
               
-            try:
+            try:  
+                  
+
                   with connection.cursor() as cursor:
-                      cursor.execute("SELECT set_config('app.current_user_id',%s,false)",
-                                     [str(entity_id)])
+                      cursor.execute("SET app.current_user_id = %s",[entity_id])
 
             except Exception as e:
                 

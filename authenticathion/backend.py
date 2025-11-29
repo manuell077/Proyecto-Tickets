@@ -2,9 +2,14 @@ from django.contrib.auth.backends import BaseBackend #Importa la clase base que 
 from django.contrib.auth.hashers import check_password #Se importa una funcion que verifica si la contraseña en texto plano coincide con la contraseña hasheada 
 from authenticathion.models import  Entity ,AccountUser #Modelo donde tenemos la cuenta de usuario
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import identify_hasher
 
-
-
+def isPasswordHash(valor):
+     try:
+          identify_hasher(valor)
+          return True
+     except Exception:
+          return False
 
 class AutenthicathionDishospital(BaseBackend): #Esta nueva clase va a sobreescribir los metodos clave authenticate y get_user() 
       
@@ -27,13 +32,15 @@ class AutenthicathionDishospital(BaseBackend): #Esta nueva clase va a sobreescri
           bd_hash = make_password(userPassword.password_hash)
 
 
-          print("La contraseña del usuario en la base de datos sin hashear es ",userPassword.password_hash)
-          userPassword.password_hash = bd_hash
           
-          print("La contraseña del usuario en la base de datos ",userPassword.password_hash)
+          if not isPasswordHash(userPassword.password_hash):
+             print("La contraseña NO esta hasheada")
+             userPassword.password_hash = bd_hash
+             userPassword.save()
+         
            
 
-
+          
 
           if check_password(password, userPassword.password_hash):
                 print("Las contraseñas son iguales")

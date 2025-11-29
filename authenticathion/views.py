@@ -3,6 +3,8 @@ from authenticathion.models import IndentityDocument, AccountUser
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.db import connection
+
 #vista para login del sistema 
 def loginDishospital(request):
     
@@ -26,14 +28,14 @@ def loginDishospital(request):
             )
          
 
-         print("El usuario es " , user)
+         
 
          if user is not None:
              # 1. OBTENER el AccountUser relacionado
             try:
                 
                 acc_user = AccountUser.objects.get(entity_id=user.entity_id)
-                print("Obtuve el acc_user")
+                
             except AccountUser.DoesNotExist:
                 messages.error(request, "Usuario sin cuenta asociada")
                 return redirect("login")
@@ -42,11 +44,15 @@ def loginDishospital(request):
             # 2. GUARDAR EL entity_id PARA EL MIDDLEWARE
             request.session["entity_id"] = acc_user.entity_id
             
-
+            with connection.cursor() as cursor:
+                cursor.execute("SET app.current_user_id = %s",[acc_user.entity_id])
+           
             # 3. LOGIN NORMAL DE DJANGO
             login(request, user)
+            print("Sesion completa:",request.session.items())
+            
 
-            return redirect("tickets")
+            return redirect("core:menu")
          
          else:
               messages.error(request,"Datos Incorrectos")

@@ -51,4 +51,36 @@ class AccountUser(models.Model):
     def __str__(self):#funcion para cuando se haga referncia a estos objetos en forma de texto se muestren de diferente forma
         return f"{self.entity_id}"
     
-     
+class Modulo(models.Model):
+      id = models.BigAutoField(primary_key=True)
+      module_name = models.TextField()
+
+      class Meta:
+            managed = False
+            db_table = 'auth"."module'
+
+      def __str__(self):
+            return f"{self.module_name}"      
+
+class Entity_Permission_Submodule(models.Model):
+      entity_id = models.IntegerField()
+      submodule_id = models.IntegerField()
+      permission_id = models.IntegerField()
+      
+      class Meta: 
+            managed = False
+            db_table = 'auth"."user_submodule_permission'
+
+      def __str__(self):
+            return f"{"Usuario", self.entity_id}"      
+
+class Submodule(models.Model):
+      submodule_name = models.TextField()
+      module_id = models.BigIntegerField()
+
+      class Meta:
+            managed = False
+            db_table = 'auth"."submodule'
+
+      def __str__(self):
+            return f"{self.submodule_name}"      
