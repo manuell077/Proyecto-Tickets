@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from authenticathion.models import IndentityDocument, AccountUser
+from authenticathion.models import IndentityDocument, AccountUser 
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
 from django.contrib import messages
@@ -7,10 +7,8 @@ from django.db import connection
 
 #vista para login del sistema 
 def loginDishospital(request):
-    
 
 
-    
 
     if request.method == "POST":
          tipo_documento = request.POST.get("tipo_documento")
@@ -61,6 +59,11 @@ def loginDishospital(request):
     lista_documentos = IndentityDocument.objects.all() #se hace una consulta con el modelo a la tabla en postgress para obtener todos los tipos de documentos Ejemplo "C.C:Cedula , T.I:Tarjeta de identidad"
     contexto = {'documentos_de_identidad':lista_documentos} #El contexto que se le va a pasar 
     return render(request,'authenticathion/index.html',contexto) #Se renderiza con el archivo html al que apúnta en este caso el index.html
+
+
+
+
+
 
 
 

@@ -5,6 +5,7 @@ from . import views
 app_name = "authenticathion"
 
 urlpatterns =[
-    path('',views.loginDishospital,name='login'),
+    path('',views.loginDishospital,name='login')
+   
 ]
 

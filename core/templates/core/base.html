@@ -9,10 +9,68 @@
     <title>Dishospital S.A.S</title>
 </head>
 <body>
+
+    <header>
+      <div class="cabecero">
+      <div class="InfoUsuario">
+
+       <div class="InfoUsuario__imagenEmpresa" >
+          <img src="{% static 'images/dishospital.jpg' %}" class="InfoUsuario__imagenEmpresa">
+       </div>
+
+       <div class="InfoUsuario__datos">
+       <h6>{{ datosUser.full_name }}</h6>
+       <p>{{ Cargo }}</p>
+       </div>
+
+      </div>
+
+      <div class="Cuenta">
+         <img src="{% static 'images/masculino.png' %}" class="Cuenta__imagen">
+      </div>
+
+      </div>
+    </header>
+
     <div class="titulo-formato">  
     <h1>DISHOSPITAL S.A.S</h1>
-    <h4>SISTEMA DE FORMATOS</h4>
+    <h5>SISTEMA DE FORMATOS</h5>
+    <p class="titulo-formato__tutorial">Selecciona un modulo para continuar</p>
     </div> 
+    
+    <main>
 
+      <div class="menuNavegacion">
+      <ul class="menuNavegacion__Lista">
+
+      {% for modulo in modulos %}
+      <li class="menuNavegacion__item" onclick="mostrarSubmodulos('{{modulo.id}}')">{{ modulo }}</li>
+      {% endfor %}
+      </ul>
+      </div>
+
+
+      <div class="menuNavegacion menuNavegacion--submenu">
+      <ul class="menuNavegacion__Lista   menuNavegacion__Lista--submenu">
+      </ul>
+      </div>
+      
+      <div class="contenidoDinamico">
+         
+
+      </div>
+      
+       
+
+    </main>
+     
+     <div class="menuTickets"> 
+        <div class="menuContenido">
+          <span class="menuContenido__Salirse">&times;</span>
+        </div>
+     </div>
+
+    <script src="{% static 'js/main.js'  %}"></script>
+    <script src="{% static 'js/manejo.js'  %}"></script>
 </body>
 </html>

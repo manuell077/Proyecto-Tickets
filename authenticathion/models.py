@@ -16,11 +16,26 @@ class IndentityDocument(models.Model):
     def __str__(self):#funcion para cuando se haga referncia a estos objetos en forma de texto se muestren de diferente forma
         return f"{self.code} - {self.document_name}"
 
+
+class Division(models.Model):
+      id = models.BigAutoField(primary_key=True)
+      parent_id = models.BigIntegerField()
+      division_name = models.CharField()
+
+      class Meta:
+         managed = False
+         db_table = 'core"."division'
+
+      def __str__(self):
+         return f"{self.division_name}"    
+
+
 #Creacion del modelo de entity donde solo necesitartemos el id , el numero del documento y le nombre completo
 class Entity(models.Model):
      id = models.BigAutoField(primary_key=True)
      document_number = models.CharField(max_length=80)
      full_name = models.CharField(max_length=150)
+     division_id = models.ForeignKey(Division,on_delete=models.DO_NOTHING,db_column="division_id")
      identity_document_id = models.ForeignKey(IndentityDocument,on_delete=models.DO_NOTHING,db_column="identity_document_id")
      
      class Meta:
@@ -51,36 +66,3 @@ class AccountUser(models.Model):
     def __str__(self):#funcion para cuando se haga referncia a estos objetos en forma de texto se muestren de diferente forma
         return f"{self.entity_id}"
     
-class Modulo(models.Model):
-      id = models.BigAutoField(primary_key=True)
-      module_name = models.TextField()
-
-      class Meta:
-            managed = False
-            db_table = 'auth"."module'
-
-      def __str__(self):
-            return f"{self.module_name}"      
-
-class Entity_Permission_Submodule(models.Model):
-      entity_id = models.IntegerField()
-      submodule_id = models.IntegerField()
-      permission_id = models.IntegerField()
-      
-      class Meta: 
-            managed = False
-            db_table = 'auth"."user_submodule_permission'
-
-      def __str__(self):
-            return f"{"Usuario", self.entity_id}"      
-
-class Submodule(models.Model):
-      submodule_name = models.TextField()
-      module_id = models.BigIntegerField()
-
-      class Meta:
-            managed = False
-            db_table = 'auth"."submodule'
-
-      def __str__(self):
-            return f"{self.submodule_name}"      
