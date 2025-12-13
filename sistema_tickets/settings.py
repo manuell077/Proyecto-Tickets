@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'it_assets',
     'core',
     'authenticathion',
     'tickets',

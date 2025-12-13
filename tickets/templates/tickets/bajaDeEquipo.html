@@ -1,0 +1,43 @@
+ <form class="formularioBajaEquipo">
+               {% csrf_token %}
+
+               <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="titulo">Titulo</label>
+               <input class="entradaFormato__entrada" type="text" name="titulo" id="titulo">
+               </div>
+
+               <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="fecha">Fecha</label>
+               <input class="entradaFormato__entrada" type="date" id="fecha" name="date">  
+               </div>
+
+               <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="fecha">Concepto Baja</label>
+               <select class="entradaFormato__entrada" id="fecha">
+                  {% for concepto in Conceptos %}
+                  <option value="'{{concepto.id}}'">{{ concepto }}</option>
+                  {% endfor %}
+               </select>
+               </div>
+               
+               <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="fecha">Computador De</label>
+               <select class="entradaFormato__entrada" id="fecha">
+                  {% for computador in computadores %}
+                  <option value="'{{computador.id}}'">{{ computador }}</option>
+                  {% endfor %}
+               </select>
+               </div>
+               
+               <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="fecha">Descripcion Del Concepto Tecnico</label>
+               <textarea class="entradaFormato__entrada entradaFormato__entrada--textArea"></textarea>
+               </div>
+
+               <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="fecha">Firma</label>
+               <canvas class="entradaFormato__entrada entradaFormato__entrada--firmaCanvas"></canvas>
+               </div>
+
+</form>
+            

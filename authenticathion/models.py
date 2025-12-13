@@ -17,7 +17,7 @@ class IndentityDocument(models.Model):
         return f"{self.code} - {self.document_name}"
 
 
-class Division(models.Model):
+class Division(models.Model): # Modelo de la division que es el area a la qu e pertenece 
       id = models.BigAutoField(primary_key=True)
       parent_id = models.BigIntegerField()
       division_name = models.CharField()

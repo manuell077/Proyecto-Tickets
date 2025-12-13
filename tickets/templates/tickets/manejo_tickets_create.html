@@ -1,0 +1,58 @@
+   {% load static %}
+   <div class="creacionNuevoTicket" onclick="mostrarVentanaModal()"> 
+
+      <img src="{% static 'images/signo-de-mas.png' %}"  class="creacionNuevoTicket__imagen">    
+      <p class="creacionNuevoTicket__parrafo">CREAR  NUEVA SOLICITUD</p> 
+   </div>
+   
+   <div class="menuTickets"> 
+
+        <div class="menuContenido">
+          <span class="menuContenido__Salirse"  onclick="cerrarVentana()">&times;</span>
+          <h1 class="menuContenido__Titulo">CREAR  NUEVO TICKET</h1>
+          <p class="menuContenido__Descripcion">Seleccione el tipo de solicitud y completa los datos necesarios</p>
+          
+          <div class="formatosCuadricula">
+          <div class="cuadriculaFormato" data-name="BajaDeEquipo"  onclick="mostrarFormularioFormato(this)" >
+             <div class="cuadriculaFormato__titulo">
+             <img src="{% static 'images/ajustes.png'%}" class="cuadriculaFormato__imagen">
+             <h6>Baja de equipos</h6>
+             </div>
+             <p  class="cuadricualaFormato__parrafo">fin de vida util de equipo o daño</p>
+          </div>
+          
+          <div class="cuadriculaFormato" data-name="EntregaEquipo" onclick="mostrarFormularioFormato(this)">
+            <div class="cuadriculaFormato__titulo" >
+             <img src="{% static 'images/devolver.png'%}" class="cuadriculaFormato__imagen">
+             <h6>Entrega de equipos</h6>
+             </div>
+             <p class="cuadricualaFormato__parrafo">prestamos de computadores,video beam etc...</p>
+          </div>
+           
+          <div class="cuadriculaFormato">
+             <div class="cuadriculaFormato__titulo">
+             <img src="{% static 'images/computadora.png'%}" class="cuadriculaFormato__imagen">
+             <h6>Solicitudes Tics</h6>
+             </div>
+             <p class="cuadricualaFormato__parrafo">solicitud al area de sistemas</p>
+          </div>
+
+          <div class="cuadriculaFormato">
+            
+             <div class="cuadriculaFormato__titulo">
+             <img src="{% static 'images/llave-de-sujecion.png'%}" class="cuadriculaFormato__imagen">
+             <h6>Revision de Hadware</h6>
+             </div>
+
+             <p class="cuadricualaFormato__parrafo">Revision de computadores</p>
+          </div>
+           </div>
+
+
+          <div class="formatoContenido" data-form="BajaDeEquipo"></div>
+          <div class="formatoContenido" data-form="EntregaEquipo"></div>
+
+        </div>
+        
+     </div>
+   
