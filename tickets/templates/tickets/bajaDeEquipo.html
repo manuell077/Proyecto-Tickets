@@ -1,43 +1,72 @@
- <form class="formularioBajaEquipo">
-               {% csrf_token %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/estilos.css' %}">
 
-               <div class="entradaFormato">
-               <label class="entradaFormato__titulo"  for="titulo">Titulo</label>
-               <input class="entradaFormato__entrada" type="text" name="titulo" id="titulo">
-               </div>
+  <form  method="POST"  class="formularioFormato" data-form="BajaDeEquipo" action="{% if modo == 'crear' %}{% url 'tickets:formatosFormularios' 'BajaDeEquipo' %}{% else %}{% url 'tickets:formatosFormulariosLlenar' 'BajaDeEquipo' ticket.id %}{% endif %}">
+                  {% csrf_token %}
 
-               <div class="entradaFormato">
-               <label class="entradaFormato__titulo"  for="fecha">Fecha</label>
-               <input class="entradaFormato__entrada" type="date" id="fecha" name="date">  
-               </div>
+                  <div class="entradaFormato">
+                  <label class="entradaFormato__titulo"  for="titulo">Titulo</label>
+                  <input class="entradaFormato__entrada" type="text" name="titulo" id="titulo">
+                  </div>
 
-               <div class="entradaFormato">
-               <label class="entradaFormato__titulo"  for="fecha">Concepto Baja</label>
-               <select class="entradaFormato__entrada" id="fecha">
-                  {% for concepto in Conceptos %}
-                  <option value="'{{concepto.id}}'">{{ concepto }}</option>
-                  {% endfor %}
-               </select>
-               </div>
+                  <div class="entradaFormato">
+                  <label class="entradaFormato__titulo"  for="fecha">Fecha</label>
+                  <input class="entradaFormato__entrada" type="date" id="fecha" name="date">  
+                  </div>
+
+                  <div class="entradaFormato">
+                  <label class="entradaFormato__titulo"  for="fecha">Concepto Baja</label>
+                  <select class="entradaFormato__entrada" id="fecha" name="concepto_baja">
+                     {% for concepto in Conceptos %}
+                     <option value="{{concepto.id}}">{{ concepto }}</option>
+                     {% endfor %}
+                  </select>
+                  </div>
+                  
+                  <div class="entradaFormato">
+                  <label class="entradaFormato__titulo"  for="fecha">Computador De</label>
+                  <select class="entradaFormato__entrada" id="fecha" name="computador">
+                              
+                           {% for computador, propietario in EquipoNombre %}
+                              <option value="{{ computador.id }}">{{ propietario }}</option>
+                           {% endfor %}
+                           
+                  </select>
+                  </div>
+                  
+                  <div class="entradaFormato">
+                  <label class="entradaFormato__titulo"  for="descripcion">Descripcion Del Concepto Tecnico</label>
+                  <textarea class="entradaFormato__entrada entradaFormato__entrada--textArea" id="descripcion" name="descripcion"></textarea>
+                  </div>
+
+
+                  <div class="entradaFormato">
+                  <label class="entradaFormato__titulo"  for="firma">Responsable De Hacer Baja (Firma)</label>
+                  <canvas class="entradaFormato__entrada entradaFormato__entrada--firmaCanvas" data-firma="firmaResponsable" ></canvas>
+                  <input type="hidden" name="firma__responsable" id="firmaResponsable" data-datosFirma="firmaResponsable"  class="firmaValor">
+                  <button type="button" class="btn btn-primary  btn-primary--firma" data-firma="firmaResponsable" >Eliminar firma</button>
+                  </div>
+
+                  <div class="entradaFormato">
+                  <label class="entradaFormato__titulo"  for="titulo">Nombre De Quien Realiza La Baja</label>
+                  <input class="entradaFormato__entrada" type="text" name="realiza_baja" id="titulo" readonly value="{{UsuarioLogueo.full_name}}">
+                  </div>
+                  <fieldset  {% if UsuarioLogueo.division_id.id != 10 %} disabled="true" {% else %} disable="false"  {% endif %}>
+                  <div class="entradaFormato">
+                  <label class="entradaFormato__titulo"  for="firma">Firma Autorizacion Baja (Firma)</label>
+                  <canvas class="entradaFormato__entrada entradaFormato__entrada--firmaCanvas {% if UsuarioLogueo.division_id.id != 10 %}firmaCanvas--disabled {% endif %}" data-firma="firmaAutorizacion"></canvas>
+                  <input type="hidden" data-datosFirma="firmaAutorizacion" name="firma_baja" id="firmaAutorizacion" class="firmaValor">
+                  <button type="button" class="btn btn-primary  btn-primary--firma" data-firma="firmaResponsable" >Eliminar firma</button>
+                  </div>
+
+                  <div class="entradaFormato">
+                  <label class="entradaFormato__titulo"  for="titulo">Nombre De Quien Autoriza</label>
+                  <input class="entradaFormato__entrada" type="text" name="QuienAutoriza" id="titulo">
+                  </div>
+                  </fieldset>
+                  
+                  
+                  <button type="submit" class="btn btn-primary">Enviar</button>
+
+   </form>
                
-               <div class="entradaFormato">
-               <label class="entradaFormato__titulo"  for="fecha">Computador De</label>
-               <select class="entradaFormato__entrada" id="fecha">
-                  {% for computador in computadores %}
-                  <option value="'{{computador.id}}'">{{ computador }}</option>
-                  {% endfor %}
-               </select>
-               </div>
-               
-               <div class="entradaFormato">
-               <label class="entradaFormato__titulo"  for="fecha">Descripcion Del Concepto Tecnico</label>
-               <textarea class="entradaFormato__entrada entradaFormato__entrada--textArea"></textarea>
-               </div>
-
-               <div class="entradaFormato">
-               <label class="entradaFormato__titulo"  for="fecha">Firma</label>
-               <canvas class="entradaFormato__entrada entradaFormato__entrada--firmaCanvas"></canvas>
-               </div>
-
-</form>
-            

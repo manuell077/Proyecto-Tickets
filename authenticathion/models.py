@@ -1,5 +1,5 @@
 from django.db import models
-
+from core.models import  area
 
 #Creacion del modelo de la tabla IndentityDocument donde solo necitaremos el code que es "Nit,C.C," y el nombre de este documento
 class IndentityDocument(models.Model):
@@ -21,6 +21,7 @@ class Division(models.Model): # Modelo de la division que es el area a la qu e p
       id = models.BigAutoField(primary_key=True)
       parent_id = models.BigIntegerField()
       division_name = models.CharField()
+      areas = models.ForeignKey(area,on_delete=models.DO_NOTHING,db_column="area_id")
 
       class Meta:
          managed = False

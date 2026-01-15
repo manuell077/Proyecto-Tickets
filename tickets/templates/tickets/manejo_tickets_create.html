@@ -29,7 +29,7 @@
              <p class="cuadricualaFormato__parrafo">prestamos de computadores,video beam etc...</p>
           </div>
            
-          <div class="cuadriculaFormato">
+          <div class="cuadriculaFormato" data-name="SolicitudesTics" onclick="mostrarFormularioFormato(this)">
              <div class="cuadriculaFormato__titulo">
              <img src="{% static 'images/computadora.png'%}" class="cuadriculaFormato__imagen">
              <h6>Solicitudes Tics</h6>
@@ -37,7 +37,7 @@
              <p class="cuadricualaFormato__parrafo">solicitud al area de sistemas</p>
           </div>
 
-          <div class="cuadriculaFormato">
+          <div class="cuadriculaFormato" data-name="RevisionHadware"  onclick="mostrarFormularioFormato(this)">
             
              <div class="cuadriculaFormato__titulo">
              <img src="{% static 'images/llave-de-sujecion.png'%}" class="cuadriculaFormato__imagen">
@@ -51,6 +51,8 @@
 
           <div class="formatoContenido" data-form="BajaDeEquipo"></div>
           <div class="formatoContenido" data-form="EntregaEquipo"></div>
+          <div class="formatoContenido" data-form="SolicitudesTics"></div>
+          <div class="formatoContenido" data-form="RevisionHadware"></div>
 
         </div>
         

@@ -46,3 +46,14 @@ class Permission(models.Model):
       
       def __str__(self):
           return f"{self.permission_name}"   
+
+
+class area(models.Model):
+      id = models.BigAutoField(primary_key=True)
+      name_area = models.CharField()
+      email_area = models.CharField()
+
+      class Meta:
+            managed = False
+            db_table = 'core"."area'
+

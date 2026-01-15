@@ -349,6 +349,120 @@
 .entradaFormato__entrada--firmaCanvas{
     height: 140px;
     border: 1px solid var(--color-negro);
+    
 }
+
+.firmaCanvas--disabled {
+    pointer-events: none;   /* no mouse / touch */
+    opacity: 0.5;           /* se ve desactivado */
+    background-color: #f2f2f2;
+}
+
+.btn-primary{
+    margin: 30px auto;
+    width: 200px;
+    display: block;
+}
+
+.btn-primary--firma{
+    margin: 30px 10px;
+    display: inline;
+}
+
+.botonesFirma{
+    display: flex;
+}
+
+.btn-primary--firmaDevolucion{
+    margin: 10px 10px;
+}
+
+
+.entradaFormato__entrada--areas{
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    border: 1px solid;
+}
+
+.entradaFormato--flex{
+   display: flex;
+   flex-wrap: wrap;
+   gap: 10px;
+}
+
+.entradaFormato__titulo--flex{
+    width: 240px;
+}
+
+.entradaFormato__entrada--flex{
+    width: 400px;
+}
+
+.botonesFlex{
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+
+.texto_solicitud{
+    margin-left: 40px;
+}
+
+
+.seccion--firma{
+    width: 100%;
+}
+
+.seccion--area{
+    width: 90%;
+}
+
+.seccion--area > select{
+    width: 100%;
+}
+
+
+fieldset[disabled] canvas{
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.ticketVista{
+    margin: 50px auto;
+    width: 80%;
+    height: 280px;
+    margin-bottom: 20px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px var(--color-gris);
+}
+
+.datosVistaContenedor{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.datosVistaTicket__boton{
+    width: 60px;
+    height: 60px;
+    margin-left: 30px;
+    background-color: white;
+    border: none;
+}
+
+.datosVistaTicket__imagen{
+    width: 60px;
+    height: 60px;
+}
+
+
 
 

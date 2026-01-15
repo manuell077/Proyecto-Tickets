@@ -1,0 +1,59 @@
+<form method="POST" class="formularioFormato" data-form="EntregaEquipo" action="{% url 'tickets:formatosFormularios' 'EntregaEquipo' %}">
+    {% csrf_token %}
+     
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="titulo">Titulo</label>
+               <input class="entradaFormato__entrada" type="text" name="titulo" id="titulo">
+    </div>
+
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="dependencia">Dependencia</label>
+               <input class="entradaFormato__entrada" type="text" name="dependencia" id="dependencia" value="{{Dependencia}}" readonly>
+    </div>
+    
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="responsables"></label>
+               <select class="entradaFormato__entrada" id="responsables" name="responsable">       
+                        {% for responsable in Responsables %}
+                           <option value="{{ responsable.id }}">{{ responsable.full_name  }}</option>
+                        {% endfor %}  
+               </select>
+    </div>
+
+    <div class="entradaFormato">
+        <label class="entradaFormato__titulo"  for="Observaciones">Observaciones(Descripción Equipo, Nº Plaqueta y Estado actual)</label>
+        <textarea class="entradaFormato__entrada entradaFormato__entrada--textArea" id="Observaciones" name="Observaciones"></textarea>
+    </div>
+    
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="fechaPrestamo">Fecha Prestamo</label>
+               <input class="entradaFormato__entrada" type="date" id="fechaPrestamo" name="FechaPrestamo">  
+    </div>
+
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="firma">Recibido Por (Firma)</label>
+               <canvas class="entradaFormato__entrada entradaFormato__entrada--firmaCanvas"  data-firma="firmaRecibido"></canvas>
+               <input type="hidden" data-datosFirma="firmaRecibido" name="Recibido_Por" id="firmaAutorizacion" class="firmaValor">
+               <div class="d-flex justify-content-center align-items-center ">
+               <button type="button" class="btn btn-primary  btn-primary--firma" data-firma="firmaRecibido" name="eliminarFirmaBacana" >Eliminar firma</button>
+               <label for="archivo" class="btn btn-primary   btn-primary--firma"  {% if UsuarioLogueo.division_id.id != 10 %} disabled="true" {% else %} disable="false"  {% endif %}>Seleccionar  archivo</label>
+               <input  class="d-none valorDeArchivo" type="file" id="archivo"  name="firmaArchivo" data-firma="firmaRecibido"  >
+               <span class="nombreDeArchivo">Ningun Archivo Seleccionado</span>
+               </div>
+    </div>
+
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="fechaDevolucion">Fecha Devoluccion</label>
+               <input class="entradaFormato__entrada" type="date" id="fechaDevolucion" name="fechaDevolucion">  
+    </div>
+
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="firma">Devuelto En Buen Estado(Firma)</label>
+               <canvas class="entradaFormato__entrada entradaFormato__entrada--firmaCanvas {% if UsuarioLogueo.division_id.id != 10 %}firmaCanvas--disabled {% endif %}" data-firma="firmaAutorizacion"></canvas>
+               <input type="hidden" data-datosFirma="firmaAutorizacion" name="firma_Devuelto" id="firmaAutorizacion" class="firmaValor">
+               <button type="button" class="btn btn-primary  btn-primary--firma" data-firma="firmaResponsable" {% if UsuarioLogueo.division_id.id != 10 %} disabled="true" {% else %} disable="false"  {% endif %} >Eliminar firma</button>
+    </div>
+    
+  <button type="submit" class="btn btn-primary">Enviar</button>
+
+</form>

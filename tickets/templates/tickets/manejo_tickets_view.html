@@ -1,1 +1,40 @@
-<h1>Hola</h1>
+{% load static %}
+
+
+{% for item in tickets %}
+<div class="ticketVista">
+      <div class="datosVistaContenedor">
+
+      <div>
+      <h1>Ticket #{{item.ticket.id}}</h1>
+      </div>
+
+      <div>
+            <h6>Estado: {{item.estado}}</h6>
+      </div>
+
+      </div>
+      
+      <div class="datosVistaContenedor">
+
+      <div class="datosVistaTicket">
+      <p>Nombre Formato: {{ item.formato}} </p>
+      <p>Titulo: {{item.ticket.title}}</p>
+      <p>Observaciones: {{item.observacion}} </p>
+      <p>Fecha Creacion: {{ item.fecha}} </p>
+      </div>
+
+
+      <div class="datosVistaTicket">
+
+         <button type="button" class="datosVistaTicket__boton" data-ticket-id="{{ item.ticket.id }}" data-formato-nombre="{{ item.formato_mayusculas }}"  ><img src="{% static 'images/boligrafo.png' %}" class="datosVistaTicket__imagen" onclick="EditarRegistro(this.parentElement)"></button>
+         <button type="button" class="datosVistaTicket__boton" data-ticket-id="{{ item.ticket.id }}" onclick="BorrarRegistro(this)" ><img src="{% static 'images/borrar.png' %}" class="datosVistaTicket__imagen"></button>
+         <button type="button" class="datosVistaTicket__boton" data-ticket-id="{{ item.ticket.id }}" onclick="VerRegistro(this)" ><img src="{% static 'images/ver-mas.png' %}" class="datosVistaTicket__imagen"></button>
+         
+      </div>
+
+      </div>
+
+</div>
+
+{% endfor %}

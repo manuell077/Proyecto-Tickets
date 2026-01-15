@@ -1,0 +1,212 @@
+<form method="POST" class="formularioFormato" data-form="SolicitudesTics" action="{% url 'tickets:formatosFormularios' 'SolicitudesTics' %}">
+   {% csrf_token %}
+   <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="titulo">Titulo</label>
+               <input class="entradaFormato__entrada" type="text" name="titulo" id="titulo">
+    </div>
+
+   <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="dependencia">Area que solicita</label>
+               <input class="entradaFormato__entrada" type="text" name="areaSolicita" id="dependencia" value="{{AreaSolicitante}}" readonly>
+    </div>
+
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="dependencia">Encargado</label>
+               <input class="entradaFormato__entrada" type="text" name="encargado" id="dependencia" value="{{Encargado}}" readonly>
+    </div>
+    
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="fecha">Fecha Solicita</label>
+               <input class="entradaFormato__entrada" type="date" id="fecha" name="Fechasolicita">  
+    </div>
+
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="fecha">Tipo de cambio</label>
+               <select class="entradaFormato__entrada" id="fecha" name="tipoCambio">
+                           <option value="Servidor">Servidor</option>
+                           <option value="Aplicaciones Terceros">Aplicaciones Terceros</option>
+                           <option value="Software Empresa">Software Empresa</option>
+               </select>
+    </div>
+     
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="fecha">Clase</label>
+               <select class="entradaFormato__entrada" id="fecha" name="clase">
+                           <option value="True">Nuevo</option>
+                           <option value="False">Cambio</option>
+               </select>
+    </div>
+
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="fecha">Impacto</label>
+               <select class="entradaFormato__entrada" id="fecha" name="Impacto">
+                           <option value="Alto">Alto</option>
+                           <option value="Medio">Medio</option>
+                           <option value="Bajo">Bajo</option>
+               </select>
+    </div>
+
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="fecha">Prioridad</label>
+               <select class="entradaFormato__entrada" id="fecha" name="prioridad">
+                           <option value="Alto">Alto</option>
+                           <option value="Medio">Medio</option>
+                           <option value="Bajo">Bajo</option>
+               </select>
+    </div>
+
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="descripcion">Justificacion de la Solicitud</label>
+               <textarea class="entradaFormato__entrada entradaFormato__entrada--textArea" id="descripcion" name="justificacionSolicitud"></textarea>
+    </div>
+
+
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="descripcion">Descripcion de la Solicitud</label>
+               <textarea class="entradaFormato__entrada entradaFormato__entrada--textArea" id="descripcion" name="descripcionSolicitud"></textarea>
+    </div>
+    
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="descripcion">Areas Implicadas</label>
+               <div class="entradaFormato__entrada entradaFormato__entrada--areas">
+                
+                <label class="entradaFormato__checkBox">
+                    <input type="checkbox" name="areas_solicitud[]" value="2">
+                    Gerencia
+                </label>
+                
+                <label class="entradaFormato__checkBox">
+                    <input type="checkbox" name="areas_solicitud[]" value="3">
+                    CCA
+                </label>
+                
+                <label class="entradaFormato__checkBox">
+                    <input type="checkbox" name="areas_solicitud[]" value="4">
+                    Control interno y calidad
+                </label>
+
+                <label class="entradaFormato__checkBox">
+                    <input type="checkbox" name="areas_solicitud[]" value="5">
+                    Comercial
+                </label>
+                 
+                <label class="entradaFormato__checkBox">
+                    <input type="checkbox" name="areas_solicitud[]" value="6">
+                    Compras
+                </label>
+
+                <label class="entradaFormato__checkBox">
+                    <input type="checkbox" name="areas_solicitud[]" value="7">
+                    Logistica
+                </label>
+
+                <label class="entradaFormato__checkBox">
+                    <input type="checkbox" name="areas_solicitud[]" value="8">
+                    Contable y financiero
+                </label>
+
+                <label class="entradaFormato__checkBox">
+                    <input type="checkbox" name="areas_solicitud[]" value="9">
+                    Tics
+                </label>
+
+                <label class="entradaFormato__checkBox">
+                    <input type="checkbox" name="areas_solicitud[]" value="10">
+                    Adminsitrativo
+                </label>
+
+                <label class="entradaFormato__checkBox">
+                    <input type="checkbox" name="areas_solicitud[]" value="11">
+                    Bioingeneria
+                </label>
+
+                <label class="entradaFormato__checkBox">
+                    <input type="checkbox" name="areas_solicitud[]" value="12">
+                    Direccion Tecnica
+                </label>
+
+               </div>
+    </div>
+
+    <div class="entradaFormato">
+               <h1>PLAN DE TRABAJO</h1>
+    </div>
+    
+    <fieldset {% if UsuarioLogueo.division_id.id != 10 %} disabled="true" {% else %} disable="false"  {% endif %} >
+    <div class="miniSeccion">
+    <div class="entradaFormato entradaFormato--flex">
+        
+        <div class="seccion">
+        <label class="entradaFormato__titulo entradaFormato__titulo--flex"  for="dependencia">N°</label>
+        <input class="entradaFormato__entrada entradaFormato__entrada--flex numeroPlan" type="text" name="numero" id="dependencia" readonly value="1">
+        </div>
+
+        <div class="seccion">
+        <label class="entradaFormato__titulo entradaFormato__titulo--flex"  for="dependencia">Actividad</label>
+        <input class="entradaFormato__entrada entradaFormato__entrada--flex" type="text" name="actividad" id="dependencia" >
+        </div>
+
+        <div class="seccion">
+        <label class="entradaFormato__titulo entradaFormato__titulo--flex"  for="dependencia">Descripcion de los recursos</label>
+        <input class="entradaFormato__entrada entradaFormato__entrada--flex" type="text" name="descripcion" id="dependencia" >
+        </div>
+        
+        <div class="seccion">
+        <label class="entradaFormato__titulo entradaFormato__titulo--flex"  for="dependencia">Inicio</label>
+        <input class="entradaFormato__entrada entradaFormato__entrada--flex" type="date" name="inicio" id="dependencia">
+        </div>
+          
+        <div class="seccion">
+        <label class="entradaFormato__titulo entradaFormato__titulo--flex"  for="dependencia">Final</label>
+        <input class="entradaFormato__entrada entradaFormato__entrada--flex" type="date" name="final" id="dependencia">
+        </div>
+        
+        <div class="seccion">
+        <label class="entradaFormato__titulo entradaFormato__titulo--flex"  for="dependencia">Responsable</label>
+        <select class="entradaFormato__entrada entradaFormato__entrada--flex" id="fecha" name="responsable">
+                            
+                        {% for  user in Usuarios%}
+                           <option value="{{user.id}}">{{user.full_name}}</option>
+                        {% endfor %}
+                        
+        </select> 
+        </div>
+        
+    </div>
+    </div>
+
+    <div class="botonesFlex">
+    <button type="button" class="btn btn-primary btn-primary--agregarSeccion">Agregar Plan Trabajo</button>
+    <button type="button"  class="btn  btn-primary  btn-primary--eliminarSeccion">Eliminar Plan Trabajo</button>
+    </div>
+
+
+</fieldset>
+
+
+    <div class="entradaFormato">
+               <h1>ESTADO DE LA SOLICITUD</h1>
+    </div>
+
+    <fieldset {% if UsuarioLogueo.division_id.id != 10 %} disabled="true" {% else %} disable="false"  {% endif %}>
+    <div class="botonesFlex" >
+    <label>
+    <input type="radio" name="solicitudEstado" value="1">
+    APROBAR SOLICITUD
+    </label>
+
+    
+   <label>
+    <input type="radio" name="solicitudEstado" value="0">
+    RECHAZAR SOLICITUD
+    </label>
+    </div>
+
+    <p class="texto_solicitud">APROBADO POR: </p>
+    <p class="texto_solicitud">RECHAZADO POR: </p>
+    </fieldset>
+     
+
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+</div>

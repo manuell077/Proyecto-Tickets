@@ -1,0 +1,189 @@
+<form method="POST" class="formularioFormato" data-form="RevisionHadware" action="{% url 'tickets:formatosFormularios' 'RevisionHadware' %}">
+    {% csrf_token %}   
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="titulo">Titulo</label>
+               <input class="entradaFormato__entrada" type="text" name="titulo" id="titulo">
+    </div>
+     
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="fecha">Fecha Solicita</label>
+               <input class="entradaFormato__entrada" type="date" id="fecha" name="fechaSolicita">  
+    </div>
+
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="dependencia">Encargado</label>
+               <input class="entradaFormato__entrada" type="text" name="encargado" id="dependencia" value="{{Encargado}}" readonly>
+    </div>
+
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="dependencia">Area que solicita</label>
+               <input class="entradaFormato__entrada" type="text" name="areaSolicita" id="dependencia" value="{{AreaSolicitante}}" readonly>
+    </div>
+
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="fecha">Computador De</label>
+               <select class="entradaFormato__entrada" id="fecha" name="computador">
+                            
+                        {% for computador, propietario in Equipos %}
+                           <option value="{{ computador.id }}">{{ propietario }}</option>
+                        {% endfor %}
+                        
+               </select>
+    </div>
+
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="descripcion">Descripcion de la anomalia presentada</label>
+               <textarea class="entradaFormato__entrada entradaFormato__entrada--textArea" id="descripcion" name="anomaliaPresentada"></textarea>
+    </div>
+    
+
+    <fieldset {% if UsuarioLogueo.division_id.id != 10 %} disabled="true" {% else %} disable="false"  {% endif %} >
+   <div class="entradaFormato">
+              <label class="entradaFormato__titulo"  for="descripcion">Revisado Por:</label>
+    </div>
+
+    <div class="botonesFlex" >
+    <label>
+    <input type="radio" name="revisadoPor" value="1">
+    Area Interna
+    </label>
+
+    
+   <label>
+    <input type="radio" name="revisadoPor" value="0">
+    Area Externa
+    </label>
+    </div>
+    
+
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="descripcion">Diagnostico de la revision</label>
+               <textarea class="entradaFormato__entrada entradaFormato__entrada--textArea" id="descripcion" name="DiagnosticoRevision"></textarea>
+    </div>
+
+    <div class="entradaFormato">
+              <label class="entradaFormato__titulo"  for="descripcion">Se soluciono:</label>
+    </div>
+     
+    <div class="botonesFlex" >
+    <label>
+    <input type="radio" name="soluciono" value="1">
+    Si
+    </label>
+
+    
+   <label>
+    <input type="radio" name="soluciono" value="0">
+    No
+    </label>
+    </div>
+    
+        <div class="entradaFormato">
+              <label class="entradaFormato__titulo"  for="descripcion">Comprar Nuevo:</label>
+    </div>
+     
+    <div class="botonesFlex" >
+    <label>
+    <input type="radio" name="comprarNuevo" value="1">
+    Si
+    </label>
+
+    
+   <label>
+    <input type="radio" name="comprarNuevo" value="0">
+    No
+    </label>
+    </div>
+    
+    <div class="entradaFormato">
+              <label class="entradaFormato__titulo"  for="descripcion">Comprar Repuestos:</label>
+    </div>
+     
+    <div class="botonesFlex" >
+    <label>
+    <input type="radio" name="comprarRepuestos" value="1">
+    Si
+    </label>
+
+    
+   <label>
+    <input type="radio" name="comprarRepuestos" value="0">
+    No
+    </label>
+    </div>
+    
+    <div class="entradaFormato">
+               <label class="entradaFormato__titulo"  for="fecha">Tiempo Estimado de Entrega</label>
+               <input class="entradaFormato__entrada" type="date" id="fecha" name="tiempoEstimado">  
+    </div>
+    
+    <div class="entradaFormato">
+    <h1>Autorizacion para remplazos</h1>
+    </div>
+
+    <div class="miniSeccion">
+    <div class="entradaFormato entradaFormato--flex">
+        
+        
+
+        <div class="seccion">
+        <label class="entradaFormato__titulo entradaFormato__titulo--flex"  for="dependencia">Fecha</label>
+        <input class="entradaFormato__entrada entradaFormato__entrada--flex" type="date" name="fechaAutorizacion" id="dependencia">
+        </div>
+
+
+        <div class="seccion">
+        <label class="entradaFormato__titulo entradaFormato__titulo--flex"  for="dependencia">Observaciones</label>
+        <input class="entradaFormato__entrada entradaFormato__entrada--flex" type="text" name="observaciones" id="dependencia" >
+        </div>
+        
+
+        
+        <div class="seccion seccion--firma">
+        <label class="entradaFormato__titulo entradaFormato__titulo--flex"  for="dependencia">Firma</label>
+        <canvas class="entradaFormato__entrada entradaFormato__entrada--firmaCanvas {% if UsuarioLogueo.division_id.id != 10 %}firmaCanvas--disabled {% endif %}"  data-firma="firmaAutorizacion"></canvas>
+        <input type="hidden" data-datosFirma="firmaAutorizacion" name="firmaAutorizacion" id="firmaAutorizacion" class="firmaValor">
+        <button type="button" class="btn btn-primary  btn-primary--firma" data-firma="firmaAutorizacion" name="eliminarFirmaBacana" >Eliminar firma</button>
+        </div>
+
+
+       
+        
+        <div class="seccion seccion--area">
+        <label class="entradaFormato__titulo entradaFormato__titulo--flex"  for="areaAutorizacion">Area</label>
+        <select class="entradaFormato__entrada entradaFormato__entrada--flex" id="areaAutoriacion" name="areaAutorizacion">
+                            
+                    <option>SISTEMAS</option>    
+                        
+        </select> 
+        </div>
+        
+    </div>
+    </div>
+    
+    <div class="entradaFormato">
+              <label class="entradaFormato__titulo"  for="descripcion">Autorizo:</label>
+    </div>
+
+     <div class="botonesFlex" >
+    <label>
+    <input type="radio" name="aprobado" value="1">
+    Si
+    </label>
+
+    
+   <label>
+    <input type="radio" name="aprobado" value="0">
+    No
+    </label>
+    </div>
+
+    <div class="botonesFlex">
+    <button type="button" class="btn btn-primary btn-primary--agregarSeccion">Agregar Autorizacion</button>
+    <button type="button"  class="btn  btn-primary  btn-primary--eliminarSeccion">Eliminar Autorizacion</button>
+    </div>
+    </fieldset>
+
+
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
