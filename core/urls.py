@@ -7,5 +7,5 @@ app_name = "core"
 urlpatterns = [
     path('',views.base, name='menu'),
     path('submodulos/<int:module_id>/',views.get_submodules , name='submodules'),
-    path('submodulos/contenido/<str:nombre_submodulo>/', views.cargarContenidoSubmodulos , name='contenido' )
+    path('submodulos/contenido/<str:nombre_submodulo>/<str:nombre_modulo>/', views.cargarContenidoSubmodulos , name='contenido' )
 ]

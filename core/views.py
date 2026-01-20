@@ -35,19 +35,22 @@ def get_submodules(request,module_id):
 
 
         Submodules = Submodule.objects.filter(module_id=module_id) #Hace un query set donde trae todos los submodulos  de acuerdo al modulo id 
+        ModuloNombre = Modulo.objects.get(id = module_id).module_name #Me trae el nombre del modulo
+
         #recorre todos los submodulos de la base de datos remplaza el _  por un espcio en blanco y los vonvierte a mayusculas todo esto lo almacena en unJson
         data = {
                 "submodules":[
-                        {"id": s.id , "name": s.submodule_name.replace("_"," ").upper()}
+                        {"id": s.id , "name": s.submodule_name.replace("_"," ").upper(),"nombreModulo":ModuloNombre}
                         for s in Submodules
                 ]
         }
 
         return JsonResponse(data) # aca retorna el JsonResponse  con la informacion adentro en la url menu/submodulos
 
-def cargarContenidoSubmodulos(request,nombre_submodulo):
+def cargarContenidoSubmodulos(request,nombre_submodulo,nombre_modulo):
         usuarioSolicitud = request.user
-
+        
+        nombreDelModuloMinusculas = nombre_modulo.lower()
         nombreTemplate = nombre_submodulo.replace(" " , "_").lower() #aca se quita el espacio en blanco y se pone el "_" y se pasa a minusculas con el lower()
         usuariosPermiso = Entity_Permission_Submodule.objects.filter(entity_id = usuarioSolicitud.id).values_list('permission_id', flat=True)  
         permisos = set(Permission.objects.filter(id__in=usuariosPermiso).values_list("permission_name",flat=True))
@@ -55,10 +58,9 @@ def cargarContenidoSubmodulos(request,nombre_submodulo):
         direccion = ""
         html = ""
         if "create" in permisos:
-           direccion = f"tickets/{nombreTemplate}_create.html"
+           direccion = f"{nombre_modulo}/{nombreTemplate}_create.html"
            html += render_to_string(direccion)     
         if "view" in permisos:
-           
            
            config = SUBMODULOS.get(nombreTemplate) 
 
@@ -66,9 +68,6 @@ def cargarContenidoSubmodulos(request,nombre_submodulo):
            FORMATOS = config.get('formatos',{})
            
            tickets_con_formato = [] #Se crea una lista para guardar por cada ticket su informacion 
-
-
-           
 
            for ticket in ticketsUsuario: #Se recorren los tickets que nos trajo el query set  
                
@@ -80,8 +79,8 @@ def cargarContenidoSubmodulos(request,nombre_submodulo):
                      break
 
                formato_en_mayusculas_pegado = ''.join(p.capitalize() for p in formato.lower().split())
-     
-
+               
+        
                tickets_con_formato.append({ #En la lista lo vamos añadiendo 
                'ticket': ticket,
                'formato_mayusculas':formato_en_mayusculas_pegado,
@@ -90,14 +89,12 @@ def cargarContenidoSubmodulos(request,nombre_submodulo):
                'observacion': observacion,
                'estado' : ticket.current_state
                 })            
-
-           contexto = {"tickets":tickets_con_formato} #Y en el contexto le pasamos la lista  por cada ticket su formato 
-           direccion = f"tickets/{nombreTemplate}_view.html"
+            
+           contexto = {"tickets":tickets_con_formato , "nombreModulo":nombreDelModuloMinusculas } #Y en el contexto le pasamos la lista  por cada ticket su formato 
+           direccion = f"{nombre_modulo}/{nombreTemplate}_view.html"
            html += render_to_string(direccion, contexto)      
           
         return HttpResponse(html) #Este valor devuelve una respuesta httpResposne donde se le pone el html 
 
     #Esta vista esta asociada a la url submodulos/contenido 
      
-
-

@@ -3,6 +3,12 @@ function mostrarVentanaModal () { //Esta funcion es para mostrar la ventana dond
     menu = document.querySelector('.menuTickets') //Selecciona  el div que tiene almacenado el menu de los formatos
     menu.style.display = 'flex';//Y lo pone como display flex 
     
+    const menuPrincipal = document.querySelector('.menuContenido');
+
+   Array.from(menuPrincipal.children).forEach(hijo => {
+    hijo.style.display = "flex";
+   });
+
 }
 //Aca se mostrara el  menu para mostrar la ventana modal para añadir tickets 
 
@@ -12,7 +18,13 @@ function cerrarVentana (){ //Esta es la funcion de la [x]
       
     menu = document.querySelector('.menuTickets') //Se vuelve a seleccioanr el .menuTickets
     menu.style.display = 'none'; //Y se oculta con el display none 
-    
+     
+    const menuContenidoEditar = document.querySelector('.menuContenido__Editar') 
+
+    if(menuContenidoEditar.children.length > 0 ){
+         menuContenidoEditar.innerHTML = ""
+    }
+
 
 }
 
@@ -20,7 +32,7 @@ const firmas = {};
 
 function mostrarFormularioFormato(elemento){ //Cuando se de click sobre un elemento se activara esta funcion 2
 
-        
+
 
     const cuadricula = document.querySelectorAll('.cuadriculaFormato') // Se selecciona el la cuadricula que es donde estan todos los formatos 
     
@@ -213,8 +225,38 @@ function EditarRegistro(btn){
    
    ticketId =  Number(btn.dataset.ticketId)
    formato = btn.dataset.formatoNombre
-    
-   window.location.href = `/tickets/formularios/${formato}/${ticketId}`
+   modulo = btn.dataset.modulo 
+   
+
+   const ventanaModal = document.querySelector(".menuTickets")
+   ventanaModal.style.display = "flex";
+   
+   const ventanaModalContenido = document.querySelector(".menuContenido")
+   const menuEditar = document.querySelector(".menuContenido__Editar")
+
+
+   Array.from(ventanaModalContenido.children).forEach(child =>{ //Se recorren todos los hijos del div de ventanaModalContenido
+       if(!child.classList.contains("menuContenido__Salirse") && !child.classList.contains("menuContenido__Editar")){//Si contiene la clase menuContenido__Salirse a ese no le vamos a poner 
+         child.style.display = "none" //Se le pone display none a los demas 
+       }
+    })
+
+   fetch(`/${modulo}/formularios/${formato}/${ticketId}`).then(response => response.text()).then(html =>{
+      menuEditar.style.display = "block"
+      menuEditar.innerHTML = html
+
+      const canvases = document.querySelectorAll("canvas[data-firma]")
+
+      canvases.forEach(canvas =>{
+        const firma = canvas.dataset.base64 
+
+        cargarFirmaEnCanvas(firma,canvas)
+
+     })
+      
+   })
+
+   
    
 }
 
@@ -224,4 +266,36 @@ function BorrarRegistro(){
 
 function VerRegistro(){
 
+}
+
+
+
+
+function cargarFirmaEnCanvas(firma,canvas){
+     
+      const firmaBase64 = firma
+      
+      ajustarCanvasSolo(canvas)
+
+      const ctx = canvas.getContext("2d")
+      const img = new Image()
+
+      img.onload = () =>{
+         ctx.clearRect(0,0,canvas.width,canvas.height)
+         ctx.drawImage(img,0,0,canvas.width,canvas.height)
+      }
+
+      img.src = firmaBase64.startsWith("data:image") ? firmaBase64 : `data:image/png;base64,${firmaBase64}`
+
+}
+
+
+function ajustarCanvasSolo(canvas) {
+    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+    const rect = canvas.getBoundingClientRect();
+
+    canvas.width = rect.width * ratio;
+    canvas.height = rect.height * ratio;
+
+    canvas.getContext("2d").scale(ratio, ratio);
 }

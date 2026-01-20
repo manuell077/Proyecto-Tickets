@@ -37,7 +37,7 @@
     margin-top: 45px;
     border-radius: 10px;
     box-shadow: 0 8px 20px var(--sombra-gris);
-    height: 540px;
+    height: 600px;
     width: 400px;
     
 }
@@ -464,5 +464,8 @@ fieldset[disabled] canvas{
 }
 
 
+.menuContenido__Editar{
+    display: none;
+}
 
 

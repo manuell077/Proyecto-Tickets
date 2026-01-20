@@ -27,7 +27,7 @@
 
       <div class="datosVistaTicket">
 
-         <button type="button" class="datosVistaTicket__boton" data-ticket-id="{{ item.ticket.id }}" data-formato-nombre="{{ item.formato_mayusculas }}"  ><img src="{% static 'images/boligrafo.png' %}" class="datosVistaTicket__imagen" onclick="EditarRegistro(this.parentElement)"></button>
+         <button type="button" class="datosVistaTicket__boton" data-ticket-id="{{ item.ticket.id }}" data-formato-nombre="{{ item.formato_mayusculas }}" data-modulo="{{ nombreModulo }}" ><img src="{% static 'images/boligrafo.png' %}" class="datosVistaTicket__imagen" onclick="EditarRegistro(this.parentElement)"></button>
          <button type="button" class="datosVistaTicket__boton" data-ticket-id="{{ item.ticket.id }}" onclick="BorrarRegistro(this)" ><img src="{% static 'images/borrar.png' %}" class="datosVistaTicket__imagen"></button>
          <button type="button" class="datosVistaTicket__boton" data-ticket-id="{{ item.ticket.id }}" onclick="VerRegistro(this)" ><img src="{% static 'images/ver-mas.png' %}" class="datosVistaTicket__imagen"></button>
          

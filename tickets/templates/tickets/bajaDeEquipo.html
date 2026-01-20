@@ -3,22 +3,24 @@
 
   <form  method="POST"  class="formularioFormato" data-form="BajaDeEquipo" action="{% if modo == 'crear' %}{% url 'tickets:formatosFormularios' 'BajaDeEquipo' %}{% else %}{% url 'tickets:formatosFormulariosLlenar' 'BajaDeEquipo' ticket.id %}{% endif %}">
                   {% csrf_token %}
+            
+                  {% if modo == 'editar' %} <h1 class="menuContenido__Titulo">FORMATO BAJA DE EQUIPO #{{ formato.id }} </h1>{%endif%}
 
                   <div class="entradaFormato">
                   <label class="entradaFormato__titulo"  for="titulo">Titulo</label>
-                  <input class="entradaFormato__entrada" type="text" name="titulo" id="titulo">
+                  <input class="entradaFormato__entrada" type="text" name="titulo" id="titulo" value="{{ formato.ticket_id.title|default_if_none:'' }}">
                   </div>
 
                   <div class="entradaFormato">
                   <label class="entradaFormato__titulo"  for="fecha">Fecha</label>
-                  <input class="entradaFormato__entrada" type="date" id="fecha" name="date">  
+                  <input class="entradaFormato__entrada" type="date" id="fecha" name="date" value="{{ formato.date_format|date:'Y-m-d'|default_if_none:'' }}">  
                   </div>
 
                   <div class="entradaFormato">
                   <label class="entradaFormato__titulo"  for="fecha">Concepto Baja</label>
-                  <select class="entradaFormato__entrada" id="fecha" name="concepto_baja">
+                  <select class="entradaFormato__entrada" id="fecha" name="concepto_baja" >
                      {% for concepto in Conceptos %}
-                     <option value="{{concepto.id}}">{{ concepto }}</option>
+                     <option value="{{concepto.id}}"{%if formato and formato.concept_low_id.id == concepto.id  %}selected{% endif %}> {{ concepto }}</option>
                      {% endfor %}
                   </select>
                   </div>
@@ -28,7 +30,7 @@
                   <select class="entradaFormato__entrada" id="fecha" name="computador">
                               
                            {% for computador, propietario in EquipoNombre %}
-                              <option value="{{ computador.id }}">{{ propietario }}</option>
+                              <option value="{{ computador.id }}" {% if formato and formato.device_id.id == computador.id  %}selected{% endif %} >{{ propietario }}</option>
                            {% endfor %}
                            
                   </select>
@@ -36,25 +38,29 @@
                   
                   <div class="entradaFormato">
                   <label class="entradaFormato__titulo"  for="descripcion">Descripcion Del Concepto Tecnico</label>
-                  <textarea class="entradaFormato__entrada entradaFormato__entrada--textArea" id="descripcion" name="descripcion"></textarea>
+                  <textarea class="entradaFormato__entrada entradaFormato__entrada--textArea" id="descripcion" name="descripcion" > {{ formato.description|default_if_none:'' }}</textarea>
                   </div>
 
 
                   <div class="entradaFormato">
                   <label class="entradaFormato__titulo"  for="firma">Responsable De Hacer Baja (Firma)</label>
-                  <canvas class="entradaFormato__entrada entradaFormato__entrada--firmaCanvas" data-firma="firmaResponsable" ></canvas>
+                  <canvas class="entradaFormato__entrada entradaFormato__entrada--firmaCanvas" data-firma="firmaResponsable"  data-base64="{{ formato.responsable_signature|default_if_none:'' }}"></canvas>
                   <input type="hidden" name="firma__responsable" id="firmaResponsable" data-datosFirma="firmaResponsable"  class="firmaValor">
                   <button type="button" class="btn btn-primary  btn-primary--firma" data-firma="firmaResponsable" >Eliminar firma</button>
                   </div>
+                    
+                  {{ formato.responsable_signature|default_if_none:''|json_script:'firmaResponsableData'}}
 
                   <div class="entradaFormato">
                   <label class="entradaFormato__titulo"  for="titulo">Nombre De Quien Realiza La Baja</label>
                   <input class="entradaFormato__entrada" type="text" name="realiza_baja" id="titulo" readonly value="{{UsuarioLogueo.full_name}}">
                   </div>
+                  
+
                   <fieldset  {% if UsuarioLogueo.division_id.id != 10 %} disabled="true" {% else %} disable="false"  {% endif %}>
                   <div class="entradaFormato">
                   <label class="entradaFormato__titulo"  for="firma">Firma Autorizacion Baja (Firma)</label>
-                  <canvas class="entradaFormato__entrada entradaFormato__entrada--firmaCanvas {% if UsuarioLogueo.division_id.id != 10 %}firmaCanvas--disabled {% endif %}" data-firma="firmaAutorizacion"></canvas>
+                  <canvas class="entradaFormato__entrada entradaFormato__entrada--firmaCanvas {% if UsuarioLogueo.division_id.id != 10 %}firmaCanvas--disabled {% endif %}" data-firma="firmaAutorizacion" data-base64="{{ formato.responsable_signature|default_if_none:'' }}"></canvas>
                   <input type="hidden" data-datosFirma="firmaAutorizacion" name="firma_baja" id="firmaAutorizacion" class="firmaValor">
                   <button type="button" class="btn btn-primary  btn-primary--firma" data-firma="firmaResponsable" >Eliminar firma</button>
                   </div>
@@ -69,4 +75,4 @@
                   <button type="submit" class="btn btn-primary">Enviar</button>
 
    </form>
-               
+      
